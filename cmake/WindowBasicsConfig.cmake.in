@@ -1,0 +1,20 @@
+@PACKAGE_INIT@
+
+if(NOT TARGET raylib)
+	add_library(raylib STATIC IMPORTED)
+
+	set_target_properties(raylib PROPERTIES
+		IMPORTED_LOCATION "@PACKAGE_CMAKE_INSTALL_LIBDIR@/libraylib.a"
+		INTERFACE_INCLUDE_DIRECTORIES "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@"
+	)
+endif()
+
+if(NOT TARGET WindowBasics::window_basics)
+	add_library(WindowBasics::window_basics STATIC IMPORTED)
+
+	set_target_properties(WindowBasics::window_basics PROPERTIES
+		IMPORTED_LOCATION "@PACKAGE_CMAKE_INSTALL_LIBDIR@/libwindow_basics.a"
+		INTERFACE_INCLUDE_DIRECTORIES "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@/window_basics"
+		INTERFACE_LINK_LIBRARIES raylib
+	)
+endif()
